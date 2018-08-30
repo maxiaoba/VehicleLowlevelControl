@@ -17,7 +17,7 @@ import tensorflow as tf
 from sandbox.rocky.tf.samplers.batch_sampler import BatchSampler
 #stub(globals())
 
-log_dir = "Data/col50tanh"
+log_dir = "Data/Ad05RTheta2RSteer2FR"
 
 tabular_log_file = osp.join(log_dir, "progress.csv")
 text_log_file = osp.join(log_dir, "debug.log")
@@ -38,7 +38,7 @@ from rllab.sampler import parallel_sampler
 parallel_sampler.initialize(n_parallel=1)
 parallel_sampler.set_seed(0)
 
-env = TfEnv(JustEgoEnv(port=9407))
+env = TfEnv(JustEgoEnv(port=9411))
 
 obs1_dim = 4
 action1_dim = 2
@@ -65,7 +65,7 @@ algo = TRPO_t(
     baseline=baseline,
     batch_size=4096,
     max_path_length=210,
-    n_itr=5000,
+    n_itr=15000,
     discount=0.95,
     step_size=0.01,
     sampler_cls=BatchSampler,

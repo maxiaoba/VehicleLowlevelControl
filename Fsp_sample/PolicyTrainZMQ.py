@@ -24,7 +24,7 @@ from sandbox.rocky.tf.spaces.box import Box
 from rllab.envs.env_spec import EnvSpec
 #stub(globals())
 
-log_dir = "Data/col50tanhabs0"
+log_dir = "Data/Ad05RTheta2RSteer2FR"
 
 tabular_log_file = osp.join(log_dir, "progress.csv")
 text_log_file = osp.join(log_dir, "debug.log")
@@ -47,7 +47,7 @@ parallel_sampler.set_seed(0)
 
 #env = normalize(MultilaneEnv(),1,True,True,0.001,0.001)
 #env = normalize(MultilaneEnv())
-env = TfEnv(JustEgoEnv(port=9410))
+env = TfEnv(JustEgoEnv(port=9414))
 
 obs1_dim = 4
 obs2_dim = 4

@@ -44,7 +44,7 @@ function render(env::JustEgoEnv)
 end
 
 # This is what needs to be called in Julia
-function run_env_server(;ip="127.0.0.1", port=9410)
+function run_env_server(;ip="127.0.0.1", port=9414)
     env = JustEgoEnv()
     conn = ZMQTransport(ip, port, ZMQ.REP, true)
     Logging.debug("running server...")
