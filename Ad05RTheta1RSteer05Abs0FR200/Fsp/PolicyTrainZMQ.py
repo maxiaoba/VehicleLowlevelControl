@@ -4,8 +4,8 @@ from regressors.gaussian_mlp_rarl_regressor import GaussianMLPRegressor
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
 
 from os import sys, path
-sys.path.append(path.abspath(path.join(path.dirname(__file__), '../..')))
-from Ad05RTheta2RSteer2FR.julia2pythonZMQ_RARL import JustEgoEnv
+sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+from julia2pythonZMQ_RARL import JustEgoEnv
 
 from rllab.misc.instrument import stub, run_experiment_lite
 from sandbox.rocky.tf.policies.gaussian_mlp_policy import GaussianMLPPolicy
@@ -47,7 +47,7 @@ parallel_sampler.set_seed(0)
 
 #env = normalize(MultilaneEnv(),1,True,True,0.001,0.001)
 #env = normalize(MultilaneEnv())
-env = TfEnv(JustEgoEnv(port=9413))
+env = TfEnv(JustEgoEnv(port=9417))
 
 obs1_dim = 4
 obs2_dim = 4
