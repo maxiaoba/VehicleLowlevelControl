@@ -13,4 +13,3 @@ include("idm_mlat_driver.jl")
 
 include("../CommonFiles/ZMQ.jl")
 include("../CommonFiles/ZMQServer_Baseline.jl")
-include("../CommonFiles/ZMQServer_RARL.jl")

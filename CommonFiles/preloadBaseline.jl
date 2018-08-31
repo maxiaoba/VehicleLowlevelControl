@@ -11,4 +11,3 @@ include("render.jl")
 
 include("ZMQ.jl")
 include("ZMQServer_Baseline.jl")
-include("ZMQServer_RARL.jl")

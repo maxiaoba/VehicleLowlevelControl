@@ -12,4 +12,3 @@ include("constants_overwrite.jl")
 
 include("../CommonFiles/ZMQ.jl")
 include("../CommonFiles/ZMQServer_Baseline.jl")
-include("../CommonFiles/ZMQServer_RARL.jl")
