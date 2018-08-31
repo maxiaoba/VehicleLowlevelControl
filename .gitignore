@@ -1,4 +1,4 @@
-_pycache_
+*pycache*
 .DS_Store
 .ipynb_checkpoints
 Data
