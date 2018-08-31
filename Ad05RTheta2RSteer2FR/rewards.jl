@@ -9,7 +9,12 @@ function log_speed(speed)
     return reward
 end
 
-function reward_fn(action::Egoaction,scene::Union{Scene,Frame{Entity{VehicleState, BicycleModel, Int}}},models::Dict{Int, DriverModel},roadway::Roadway)
+function reward_fn(action::Egoaction,fail::Bool,
+        scene::Union{Scene,Frame{Entity{VehicleState, BicycleModel, Int}}},models::Dict{Int, DriverModel},roadway::Roadway)
+    if fail
+        return -200.0
+    end
+
     acc = action.acc*ACCELERATION_MAX
     steer = action.steer*STEER_MAX
     acc = max(-ACCELERATION_MAX,min(ACCELERATION_MAX,acc))
@@ -50,21 +55,6 @@ function reward_fn(action::Egoaction,scene::Union{Scene,Frame{Entity{VehicleStat
     #     else
     #         thetaReward = 0.5-abs(θ)/(pi/4)
     #     end
-    end
-    
-    collision=false
-    out_of_range=false
-    collisionResult=get_first_collision(scene, 1)
-    collision=collisionResult.is_colliding
-    out_of_road=check_out_of_range(scene,roadway,1)
-    if scene[1].state.posG.x < (EGO_START_X - CAR_LENGTH )
-         out_of_road=true
-    end
-    if mod2pi(scene[1].state.posG.θ) > pi/2.0 && mod2pi(scene[1].state.posG.θ) < pi*3.0/2.0
-        collision=true
-    end
-    if collision || out_of_road
-        return -50.0
     end
     
     return 0.5*speedReward+goalReward+0.1*accReward+2.0*steerReward+2.0*thetaReward

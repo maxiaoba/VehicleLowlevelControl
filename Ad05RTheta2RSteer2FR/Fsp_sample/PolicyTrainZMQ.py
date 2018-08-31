@@ -4,7 +4,7 @@ from regressors.gaussian_mlp_rarl_regressor import GaussianMLPRegressor
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
 
 from os import sys, path
-sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+sys.path.append(path.abspath(path.join(path.dirname(__file__), '../..')))
 from Ad05RTheta2RSteer2FR.julia2pythonZMQ_RARL import JustEgoEnv
 
 from rllab.misc.instrument import stub, run_experiment_lite

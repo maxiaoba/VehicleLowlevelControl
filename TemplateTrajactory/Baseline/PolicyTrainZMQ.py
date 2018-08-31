@@ -5,7 +5,7 @@ from algos.trpo_transfer import TRPO_t
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
 
 from os import sys, path
-sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+sys.path.append(path.abspath(path.join(path.dirname(__file__), '../..')))
 from CommonFiles.julia2pythonZMQ_Baseline import JustEgoEnv
 from rllab.misc.instrument import stub, run_experiment_lite
 from sandbox.rocky.tf.policies.gaussian_mlp_policy import GaussianMLPPolicy
@@ -38,7 +38,7 @@ from rllab.sampler import parallel_sampler
 parallel_sampler.initialize(n_parallel=1)
 parallel_sampler.set_seed(0)
 
-env = TfEnv(JustEgoEnv(port=9411))
+env = TfEnv(JustEgoEnv(port=9421))
 
 obs1_dim = 4
 action1_dim = 2

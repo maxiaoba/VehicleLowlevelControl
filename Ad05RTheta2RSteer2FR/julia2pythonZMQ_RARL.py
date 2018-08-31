@@ -53,12 +53,12 @@ class JustEgoEnv(Env, Serializable):
         assert 'info' in data
         reward = data['rew']
         if Action['policy_num'] == 2:
-            if reward == -50:
-                reward = -reward
+            if data["info"]["fail"]:
+                reward = 200.0
             else:
                 dacc = action[2]
                 dsteer = action[3]
-                reward = -0.01*(np.abs(dacc)+np.abs(dsteer))
+                reward = -0.05*(np.abs(dacc)+np.abs(dsteer))
 
         return Step(observation=data['obs'], reward=reward, done=data['done'])
 

@@ -1,3 +1,7 @@
+using DeepRL
+using JSON
+using ZMQ
+
 struct ZMQTransport
     ctx::Context
     sock::Socket

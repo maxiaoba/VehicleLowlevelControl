@@ -1,10 +1,10 @@
-from algos.rarl import RARL
+from algos.fsp_sample import RARL
 from regressors.gaussian_mlp_rarl_regressor import GaussianMLPRegressor
 
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
 
 from os import sys, path
-sys.path.append(path.abspath(path.join(path.dirname(__file__), '..')))
+sys.path.append(path.abspath(path.join(path.dirname(__file__), '../..')))
 from Ad05RTheta2RSteer2FR.julia2pythonZMQ_RARL import JustEgoEnv
 
 from rllab.misc.instrument import stub, run_experiment_lite
@@ -47,7 +47,7 @@ parallel_sampler.set_seed(0)
 
 #env = normalize(MultilaneEnv(),1,True,True,0.001,0.001)
 #env = normalize(MultilaneEnv())
-env = TfEnv(JustEgoEnv(port=9412))
+env = TfEnv(JustEgoEnv(port=9424))
 
 obs1_dim = 4
 obs2_dim = 4
@@ -105,7 +105,7 @@ with tf.Session() as sess:
         baseline2=baseline2,
         batch_size=4096,
         max_path_length=210,
-        n_itr=5000,
+        n_itr=5001,
         N1 = 5,
         N2 = 2,
         discount=0.95,
@@ -113,6 +113,8 @@ with tf.Session() as sess:
         transfer=True,
         record_rewards=False,
         # optimizer_args=dict(hvp_approach=FiniteDifferenceHvp(base_eps=1e-5)),
+        sample_policy_1=False,
+        policy_path=log_dir+"/params",
         # Uncomment both lines (this and the plot parameter below) to enable plotting
         # plot=True,
     )        

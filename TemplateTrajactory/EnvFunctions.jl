@@ -45,6 +45,16 @@ function rand_ego!(scene=Frame(Entity{VehicleState, BicycleModel, Int},1),
     push!(scene,Entity(VehicleState(pos, roadway, ego_v), 
                             BicycleModel(VehicleDef(AgentClass.CAR, CAR_LENGTH, CAR_WIDTH),CAR_A,CAR_B),id))
     models[id] = AccCurvatureStateDriver(TIMESTEP,0.0,0.0,TOTALSTEP)
+
+    id += 1
+    models[id] = IDMMLATDriverInit()
+    excute_action!(models[2], DESIRE_SPEED, 1, scene, roadway, 1)
+
+
+    AutomotiveDrivingModels.observe!(models[2], scene, roadway, 1)
+    expertAction = rand(models[2])
+    expertState = AutomotiveDrivingModels.propagate(scene[1], expertAction,  roadway, TIMESTEP)
+    models[1].expertState = expertState
     return scene,models,roadway
 end
 
@@ -73,6 +83,12 @@ function pre_simulate_action!(action::Egoaction,scene::Union{Scene,Frame{Entity{
     
     models[1].acc = acc
     models[1].u = steer
+
+    #get expect points
+    AutomotiveDrivingModels.observe!(models[2], scene, roadway, 1)
+    expertAction = rand(models[2])
+    expertState = AutomotiveDrivingModels.propagate(scene[1], expertAction,  roadway, TIMESTEP)
+    models[1].expertState = expertState
 end
 
 function simulate_action!(action::Egoaction,scene::Union{Scene,Frame{Entity{VehicleState, BicycleModel, Int}}},models::Dict{Int, DriverModel},roadway::Roadway)
@@ -103,6 +119,7 @@ end
 function get_observation(scene::Union{Scene,Frame{Entity{VehicleState, BicycleModel, Int}}},models::Dict{Int, DriverModel},roadway::Roadway)
     state = zeros(4)
     #generate ego state
+    Px = scene[1].state.posG.x
     Py = scene[1].state.posG.y
     V = scene[1].state.v
     θ = mod2pi(scene[1].state.posG.θ)
@@ -115,6 +132,7 @@ function get_observation(scene::Union{Scene,Frame{Entity{VehicleState, BicycleMo
     state[3] = θ
     state[4] = models[1].k
     #y v theta k
+
     return state
 end
 ############################

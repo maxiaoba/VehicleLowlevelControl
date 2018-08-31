@@ -2,9 +2,6 @@ using DeepRL
 using JSON
 using ZMQ
 
-include("../Ad05RTheta2RSteer2FR/preload.jl")
-include("../CommonFiles/ZMQ.jl")
-
 mutable struct JustEgoEnv <: AbstractEnvironment
 
     scene::Union{Scene,Frame{Entity{VehicleState, BicycleModel, Int}}}
@@ -32,10 +29,11 @@ end
 
 function step!(env::JustEgoEnv, action)
     egoaction = Egoaction(action[1],action[2],action[3],action[4])
-    done = simulate_action!(egoaction,env.scene,env.models,env.roadway)
+    done, fail = simulate_action!(egoaction,env.scene,env.models,env.roadway)
     obs = get_observation(env.scene,env.models,env.roadway)
-    info = nothing
-    reward = reward_fn(egoaction,env.scene,env.models,env.roadway)
+    info = Dict()
+    info["fail"] = fail
+    reward = reward_fn(egoaction,fail,env.scene,env.models,env.roadway)
     return obs, reward, done, info
 end
 
@@ -44,7 +42,7 @@ function render(env::JustEgoEnv)
 end
 
 # This is what needs to be called in Julia
-function run_env_server(;ip="127.0.0.1", port=9414)
+function run_env_server_rarl(port;ip="127.0.0.1")
     env = JustEgoEnv()
     conn = ZMQTransport(ip, port, ZMQ.REP, true)
     Logging.debug("running server...")

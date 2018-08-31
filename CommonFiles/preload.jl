@@ -8,3 +8,7 @@ include("EnvFunctions.jl")
 include("AccCurvatureStateDriver.jl")
 include("rewards.jl")
 include("render.jl")
+
+include("ZMQ.jl")
+include("ZMQServer_Baseline.jl")
+include("ZMQServer_RARL.jl")
