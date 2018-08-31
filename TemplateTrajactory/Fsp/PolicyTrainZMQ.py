@@ -127,7 +127,7 @@ with tf.Session() as sess:
         baseline2=baseline2,
         batch_size=4096,
         max_path_length=210,
-        n_itr=5000,
+        n_itr=5001,
         N1 = 5,
         N2 = 2,
         Nr1 = 1,
