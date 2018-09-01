@@ -62,5 +62,5 @@ function reward_fn(action::Egoaction,fail::Bool,
     #     end
     end
     
-    return 0.5*speedReward+goalReward+0.1*accReward+0.5*steerReward+1.0*thetaReward+1.0*smoothReward
+    return 0.5*speedReward+goalReward+0.1*accReward+0.5*steerReward+1.0*thetaReward+0.2*smoothReward
 end
