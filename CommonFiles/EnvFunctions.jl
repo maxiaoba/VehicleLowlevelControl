@@ -28,7 +28,8 @@ end
 
 function rand_ego!(scene=Frame(Entity{VehicleState, BicycleModel, Int},1),
                     models=Dict{Int, DriverModel}(),
-                    roadway=gen_straight_roadway(LANE_NUM, 5000.0, lane_width=LANE_WIDTH);)
+                    roadway=gen_straight_roadway(LANE_NUM, 5000.0, lane_width=LANE_WIDTH);
+                    car_a::Float64 = CAR_A, car_b::Float64=CAR_B)
     
     empty!(scene)
     for key in keys(models)
@@ -43,7 +44,7 @@ function rand_ego!(scene=Frame(Entity{VehicleState, BicycleModel, Int},1),
     ego_theta=0.0+(2*rand()-1.0)*THETA_NOISE
     pos=VecSE2(ego_x,ego_y,ego_theta)
     push!(scene,Entity(VehicleState(pos, roadway, ego_v), 
-                            BicycleModel(VehicleDef(AgentClass.CAR, CAR_LENGTH, CAR_WIDTH),CAR_A,CAR_B),id))
+                            BicycleModel(VehicleDef(AgentClass.CAR, CAR_LENGTH, CAR_WIDTH),car_a,car_b),id))
     models[id] = AccCurvatureStateDriver(TIMESTEP,0.0,0.0,TOTALSTEP)
     return scene,models,roadway
 end
