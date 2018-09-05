@@ -90,7 +90,7 @@ with tf.Session() as sess:
     # )
     policy2 = GaussianMLPPolicy(
         env_spec=spec2,
-        name="RARLTFPolicy2",
+        name="AdPolicy",
         learn_std=True,
         init_std=0.1,
         output_nonlinearity=None,
