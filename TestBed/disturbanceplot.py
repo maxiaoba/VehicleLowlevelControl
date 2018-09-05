@@ -3,13 +3,13 @@ import joblib
 from matplotlib import pyplot as plt
 import numpy as np
 
-log_dir = "/Users/xiaobaima/Dropbox/SISL/RARL/JustEgoGrey/TestBed/Data/Aug29/ThetaReward/"
+log_dir = "/Users/xiaobaima/Dropbox/SISL/RARL/JustEgoGrey/TestBed/Data/Sep1/Ad05RTheta1RSteer05Abs0FR200/"
 names = []
 names = ["fsp_1e3"]
 for name in names:
-	states = np.loadtxt(log_dir+"Disturbance/"+name+"_states"+".txt")
-	daccs = np.loadtxt(log_dir+"Disturbance/"+name+"_daccs_out"+".txt")
-	dsteers = np.loadtxt(log_dir+"Disturbance/"+name+"_dsteers_out"+".txt")
+	states = np.loadtxt(log_dir+"Disturbance/"+name+"_reg_states"+".txt")
+	daccs = np.loadtxt(log_dir+"Disturbance/"+name+"_reg_daccs"+".txt")
+	dsteers = np.loadtxt(log_dir+"Disturbance/"+name+"_reg_dsteers"+".txt")
 
 	ys = [state[0] for state in states]
 
@@ -24,5 +24,5 @@ for name in names:
 	plt.xlabel('dsteer')
 	plt.ylabel('y')
 
-	fig.savefig(log_dir+"Plot/Disturbance/"+name+"/scatter_y.pdf")
+	fig.savefig(log_dir+"Plot/Disturbance/"+name+"_reg_scatter_y.pdf")
 	plt.close(fig)
