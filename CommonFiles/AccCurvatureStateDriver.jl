@@ -13,6 +13,7 @@ mutable struct AccCurvatureStateDriver <: DriverModel{AccelSteeringDirection}
     steer::Float64
     k::Float64 #actual curvature
     t::Int
+    L::Float64
 end
 
 function AccCurvatureStateDriver(dt::Float64, a::Float64, u::Float64,t::Int;
@@ -22,12 +23,13 @@ function AccCurvatureStateDriver(dt::Float64, a::Float64, u::Float64,t::Int;
         C::Array{Float64} = CCONST,
         steer::Float64 = 0.0,
         k::Float64 = 0.0,
+        L::Float64 = AXLE_DISTANCE,
         )
     M=expm([A B; 0 0 0]*dt)
     Ad=M[1:2,1:2]
     Bd=M[1:2,3]
     Cd = C
-    return AccCurvatureStateDriver(dt,a,u,c,direction,Ad,Bd,Cd,steer,k,t)
+    return AccCurvatureStateDriver(dt,a,u,c,direction,Ad,Bd,Cd,steer,k,t,L)
 end
 
 AutomotiveDrivingModels.get_name(model::AccCurvatureStateDriver) = "AccCurvatureStateDriver"
@@ -37,7 +39,7 @@ function AutomotiveDrivingModels.observe!(model::AccCurvatureStateDriver, scene:
 end
 
 function Base.rand(model::AccCurvatureStateDriver)
-    L = AXLE_DISTANCE
+    L = model.L
     model.c = model.Ad*model.c + model.Bd*tan.(model.u)/L
     model.k = (model.Cd*model.c)[1]
     model.steer = atan(L*model.k)
