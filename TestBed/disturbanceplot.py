@@ -5,7 +5,12 @@ import numpy as np
 
 log_dir = "/Users/xiaobaima/Dropbox/SISL/RARL/JustEgoGrey/TestBed/Data/Sep1/Ad05RTheta1RSteer05Abs0FR200/"
 names = []
-names = ["rarl_5e3","fsp_5e3"]
+names = ["fsp_2e3","fsp_3e3","fsp_4e3"]
+reg = True
+if reg:
+	for (i,name) in enumerate(names):
+		names[i] = name+"_reg"
+
 for name in names:
 	states = np.loadtxt(log_dir+"Disturbance/"+name+"_states"+".txt")
 	daccs = np.loadtxt(log_dir+"Disturbance/"+name+"_daccs"+".txt")
